@@ -26,6 +26,10 @@ endpoints:
 
 ---
 grails:
+    spring:
+        bean:
+            packages:
+                - com.akhilesh.learning
     mime:
         disable:
             accept:
