@@ -1,7 +1,6 @@
 package com.akhilesh.learning
 
-import org.grails.gsp.GroovyPagesTemplateEngine
-import org.grails.gsp.io.GroovyPageLocator
+import org.grails.web.servlet.view.SitemeshLayoutViewResolver
 import org.grails.web.servlet.view.GroovyPageViewResolver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -23,10 +22,8 @@ import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator
 class DummyWebFlowConfiguration extends AbstractFlowConfiguration {
 
     @Autowired
-    GroovyPagesTemplateEngine groovyPagesTemplateEngine;
-    @Autowired
-    GroovyPageLocator groovyPageLocator;
-
+    SitemeshLayoutViewResolver layoutViewResolver;
+   
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder(flowBuilderServices())
@@ -58,10 +55,7 @@ class DummyWebFlowConfiguration extends AbstractFlowConfiguration {
 
     @Bean
     ViewResolver gspViewResolver() {
-        GroovyPageViewResolver innerGspViewResolver = new GroovyPageViewResolver(groovyPagesTemplateEngine, groovyPageLocator);
-        //innerGspViewResolver.setAllowGrailsViewCaching(!gspReloadingEnabled || viewCacheTimeout != 0);
-        //innerGspViewResolver.setCacheTimeout(gspReloadingEnabled ? viewCacheTimeout : -1);
-        return innerGspViewResolver;
+       return layoutViewResolver;
     }
 }
 
